@@ -46,7 +46,7 @@ public class DefaultTeleopCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.driveTrain.teleopDrive(Robot.oi.driverJoystick); 
+        Robot.driveTrain.arcadeDrive(); 
         SmartDashboard.putString("DefaultTeleop Running: ", " execute");
     }
 
