@@ -10,7 +10,7 @@
 
 
 package org.usfirst.frc5933.Ripley2019.commands;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Command; 
 import org.usfirst.frc5933.Ripley2019.Robot;
 
 /**
@@ -38,11 +38,14 @@ public class DefaultTeleopCommand extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        SmartDashboard.putString();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        Robot.DriveTrain.teleopDrive(Robot.mi_oi.getDriverJoystick); 
+        SmartDashboard.putString("DefaultTeleop Running: ", " execute");
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -54,11 +57,15 @@ public class DefaultTeleopCommand extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.DriveTrain.stop();
+
+        SmartDashboard.putString("DefaultTeleop Running: ", "just finished");
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        end(); 
     }
 }
