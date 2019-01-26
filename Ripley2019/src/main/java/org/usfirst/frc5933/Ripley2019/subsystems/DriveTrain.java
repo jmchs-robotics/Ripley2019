@@ -143,16 +143,16 @@ public class DriveTrain extends Subsystem {
 	public void periodic() {
 		// Put code here to be run Ripleyry loop
 
-		SmartDashboard.putNumber("Joystick X: ", Robot.oi.driverJoystick.getX());
-		SmartDashboard.putNumber("Joystick Y: ", Robot.oi.driverJoystick.getY());
-		SmartDashboard.putNumber("Joystick Magnitude: ", Robot.oi.driverJoystick.getMagnitude());
+		// SmartDashboard.putNumber("Joystick X: ", Robot.oi.driverJoystick.getX());
+		// SmartDashboard.putNumber("Joystick Y: ", Robot.oi.driverJoystick.getY());
+		// SmartDashboard.putNumber("Joystick Magnitude: ", Robot.oi.driverJoystick.getMagnitude());
 		
-		SmartDashboard.putNumber("Left Out: ", driveTrainLeftMaster.getMotorOutputPercent());
-		SmartDashboard.putNumber("Right Out: ", driveTrainRightMaster.getMotorOutputPercent());
+		// SmartDashboard.putNumber("Left Out: ", driveTrainLeftMaster.getMotorOutputPercent());
+		// SmartDashboard.putNumber("Right Out: ", driveTrainRightMaster.getMotorOutputPercent());
 		
-		SmartDashboard.putNumber("Left Enc: ", getLeftEncoderPos(0));
-		SmartDashboard.putNumber("Right Enc: ", getRightEncoderPos(0));
-		SmartDashboard.putNumber("Gyro Out: ", getGyroHeading());
+		// SmartDashboard.putNumber("Left Enc: ", getLeftEncoderPos(0));
+		// SmartDashboard.putNumber("Right Enc: ", getRightEncoderPos(0));
+		// SmartDashboard.putNumber("Gyro Out: ", getGyroHeading());
 	}
 
 	private void setNominalAndMax() {
