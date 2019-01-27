@@ -110,6 +110,6 @@ public class RobotMap {
     
         //instantiate the end game actuators (a piston and Spark) on next available slots.
 //        EndGamePiston = new DoubleSolenoid(0, 2, 3);
-        endgameSubsystemMotor = new Spark(0);
+        endgameSubsystemMotor = new Spark(9);
     }
 }
