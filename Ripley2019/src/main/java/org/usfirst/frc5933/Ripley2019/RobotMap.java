@@ -64,7 +64,7 @@ public class RobotMap {
 //    public static DoubleSolenoid hatchSubsystemSolenoid;
 
     //wrist manipulation objects
-    public static DoubleSolenoid wristSubsystemSolenoid;
+//    public static DoubleSolenoid wristSubsystemSolenoid;
     
     //roborio objects
     public static DigitalInput[] DIPs;
@@ -79,6 +79,10 @@ public class RobotMap {
         //Instantiate robot drive type for teleop control.
         drivetrainRobotDrive = new DifferentialDrive(drivetrainLeftMaster, drivetrainRightMaster);
         drivetrainRobotDrive.setSafetyEnabled(true);
+        // the "DifferentialDrive... Output not updated often enough." error may only happen when Talons aren't connected to motors.
+        // we can stop the "DifferentialDrive... Output not updated enough." error by setting setSafetyEnabled(false)
+        drivetrainRobotDrive.setSafetyEnabled(true);
+        // we can slow (but not stop) the rate of the "DifferentialDrive... Output not updated enough." error by setting setExpiration(10)
         drivetrainRobotDrive.setExpiration(0.1);
         drivetrainRobotDrive.setMaxOutput(1.0);
         
