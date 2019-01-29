@@ -51,6 +51,9 @@ public class DefaultTeleopCommand extends Command {
         SmartDashboard.putString( "Vision Socket direction:", Robot.rft_.get_direction());
         SmartDashboard.putNumber( "Vision Socket dir offset:", Robot.rft_.get_degrees_x());
         SmartDashboard.putNumber( "Vision Socket distance:", Robot.rft_.get_distance());
+
+        //YeetArm
+        Robot.yeetArm.setSpeed (Robot.oi.getSubsystemJoystick().getY());
     }
 
     // Make this return true when this Command no longer needs to run execute()
