@@ -58,6 +58,21 @@ public class Arm extends Subsystem {
         // setDefaultCommand(new MySpecialCommand());
     }
 
+        public void robotInit(){
+
+        }
+
+        public void teleopInit(){
+
+        }
+
+        public void autonomousInit(){
+
+        }
+
+        public void teleopPeriodic(){
+            
+        }
     @Override
     public void periodic() {
         // Put code here to be run every loop
