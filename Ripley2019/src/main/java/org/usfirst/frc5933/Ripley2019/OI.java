@@ -85,7 +85,20 @@ public class OI {
         subDPadUp = new POVButton(subsystemJoystick, 90);
         subDPadUp.whenPressed(new MoveArmUp());
 
-        
+        subDPadUpLeft = new POVButton(subsystemJoystick, 135);
+        subDPadUpLeft.whenPressed(new MoveArmUp());
+
+        subDPadUpRight = new POVButton(subsystemJoystick, 45);
+        subDPadUpRight.whenPressed(new MoveArmUp());
+
+        subDPadDown = new POVButton(subsystemJoystick, 270);
+        subDPadDown.whenPressed(new MoveArmDown());
+
+        subDPadDownLeft = new POVButton(subsystemJoystick, 225);
+        subDPadDownLeft.whenPressed(new MoveArmDown());
+
+        subDPadDownRight = new POVButton(subsystemJoystick, 315);
+        subDPadDownRight.whenPressed(new MoveArmDown());
 
 
         // SmartDashboard Buttons
