@@ -21,6 +21,7 @@ import org.usfirst.frc5933.Ripley2019.commands.*;
 import org.usfirst.frc5933.Ripley2019.subsystems.*;
 
 import org.usfirst.frc5933.Ripley2019.SocketVision;
+import org.usfirst.frc5933.Ripley2019.SocketVisionSender;
 import org.usfirst.frc5933.Ripley2019.RobotMap;
 
 /**
@@ -35,8 +36,9 @@ public class Robot extends TimedRobot {
     	//Socket-based receivers. One is needed for each port to read from
 	public static SocketVision rft_;		//5801
 	public static SocketVision platform_;	//5804
+
 	//socket sender. One is needed per IP to send to
-	//public static SocketVisionSender sender_;
+	public static SocketVisionSender sender_;
 
 	//Socket constants
 	public static final boolean show_debug_vision = false;
