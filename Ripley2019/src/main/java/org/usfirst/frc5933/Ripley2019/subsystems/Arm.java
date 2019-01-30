@@ -80,15 +80,15 @@ public class Arm extends Subsystem {
         }
 
         public void stop(){
-
+            armSubsystemMotor.stopMotor();
         }
 
         public void armUp(){
-            
+            armSubsystemMotor.set(0.7);
         }         
 
         public void armDown(){
-
+            armSubsystemMotor.set(-0.7);
         }
 
     public void periodic() {
