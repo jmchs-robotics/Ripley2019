@@ -62,6 +62,8 @@ public class OI {
 
     public JoystickButton subA;
     public JoystickButton subB;
+    public JoystickButton subY;
+    public JoystickButton subX;
     public JoystickButton subBumperL;
 	public JoystickButton subBumperR;
     public POVButton subDPadUp;
@@ -80,6 +82,7 @@ public class OI {
         
         driverJoystick = new Joystick(0);
 
+        //For the CricketLegs
         subA = new JoystickButton(subsystemJoystick, 1);
         subA.whenPressed(new CricketLegsOut());
 
@@ -92,6 +95,14 @@ public class OI {
 
         subBumperR = new JoystickButton(subsystemJoystick, 6);
         subBumperR.whenPressed(new HatchDropOff());
+
+        //For Shoulder
+        subY = new JoystickButton(subsystemJoystick, 4);
+        subY.whileHeld(new MoveArmUp());
+
+        subX = new JoystickButton(subsystemJoystick, 3);
+        subX.whileHeld(new MoveArmDown());
+
 
         subDPadUp = new POVButton(subsystemJoystick, 90);
         subDPadUp.whenPressed(new MoveArmUp());
