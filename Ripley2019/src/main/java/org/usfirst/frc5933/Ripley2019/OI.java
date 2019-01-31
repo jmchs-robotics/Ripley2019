@@ -65,7 +65,9 @@ public class OI {
     public JoystickButton subY;
     public JoystickButton subX;
     public JoystickButton subBumperL;
-	public JoystickButton subBumperR;
+    public JoystickButton subBumperR;
+    public JoystickButton subStart;
+    public JoystickButton subBack;
     public POVButton subDPadUp;
     public POVButton subDPadDown;
     public POVButton subDPadUpLeft;
@@ -121,6 +123,14 @@ public class OI {
 
         subDPadDownRight = new POVButton(subsystemJoystick, 315);
         subDPadDownRight.whenPressed(new MoveArmDown());
+
+        //For Wrist
+
+        subStart = new JoystickButton(subsystemJoystick, 7);
+        subStart.whenPressed(new WristIn());
+
+        subBack = new JoystickButton(subsystemJoystick, 8);
+        subBack.whenPressed(new WristOut());
 
 
         // SmartDashboard Buttons
