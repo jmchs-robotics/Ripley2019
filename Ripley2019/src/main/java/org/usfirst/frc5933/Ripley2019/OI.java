@@ -13,6 +13,7 @@ package org.usfirst.frc5933.Ripley2019;
 
 import org.usfirst.frc5933.Ripley2019.commands.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.AnalogTrigger;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
@@ -66,6 +67,10 @@ public class OI {
     public JoystickButton subX;
     public JoystickButton subBumperL;
     public JoystickButton subBumperR;
+    //public AnalogTrigger subTriggerL;
+    //public AnalogTrigger subTriggerR;
+    public JoystickButton subLStick;
+    public JoystickButton subRStick;
     public JoystickButton subStart;
     public JoystickButton subBack;
     public POVButton subDPadUp;
@@ -97,6 +102,15 @@ public class OI {
 
         subBumperR = new JoystickButton(subsystemJoystick, 6);
         subBumperR.whenPressed(new HatchDropOff());
+
+        //For the Cargo
+        //subTriggerL = new AnalogTrigger(2);
+        //subTriggerR = new AnalogTrigger(3);
+        subLStick = new JoystickButton(subsystemJoystick, 9);
+        subLStick.whileHeld(new CargoIn());
+
+        subRStick = new JoystickButton(subsystemJoystick, 10);
+        subRStick.whileHeld(new CargoOut());
 
         //For Shoulder
         subY = new JoystickButton(subsystemJoystick, 4);
