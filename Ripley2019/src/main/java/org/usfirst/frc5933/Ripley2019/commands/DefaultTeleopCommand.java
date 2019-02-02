@@ -51,7 +51,12 @@ public class DefaultTeleopCommand extends Command {
         SmartDashboard.putString( "Vision Socket direction:", Robot.rft_.get_direction());
         SmartDashboard.putNumber( "Vision Socket dir offset:", Robot.rft_.get_degrees_x());
         SmartDashboard.putNumber( "Vision Socket distance:", Robot.rft_.get_distance());
-
+        
+        Robot.oi.getSubsystemJoystick().setThrottleChannel(2);
+        Robot.cargo.setCargoMotorSpeed(-Robot.oi.getSubsystemJoystick().getThrottle());
+        Robot.oi.getSubsystemJoystick().setThrottleChannel(3);
+        Robot.cargo.setCargoMotorSpeed(Robot.oi.getSubsystemJoystick().getThrottle());
+        SmartDashboard.putNumber("Throttle Channel:",Robot.oi.getSubsystemJoystick().getThrottleChannel());
         //YeetArm
         Robot.yeetArm.setSpeed (Robot.oi.getSubsystemJoystick().getY());
     }

@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.AnalogTrigger;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
+import edu.wpi.first.wpilibj.buttons.Trigger;
 
 import org.usfirst.frc5933.Ripley2019.subsystems.*;
 
@@ -67,8 +68,6 @@ public class OI {
     public JoystickButton subX;
     public JoystickButton subBumperL;
     public JoystickButton subBumperR;
-    //public AnalogTrigger subTriggerL;
-    //public AnalogTrigger subTriggerR;
     public JoystickButton subLStick;
     public JoystickButton subRStick;
     public JoystickButton subStart;
@@ -94,7 +93,7 @@ public class OI {
         subA.whenPressed(new CricketLegsOut());
 
         subB = new JoystickButton(subsystemJoystick, 2);
-        subB.whenPressed(new CricketLegsIn());
+        subB.whenPressed(new CricketLegsIn()); 
 
         //For the Hatch Panel
         subBumperL = new JoystickButton(subsystemJoystick, 5);
@@ -103,9 +102,8 @@ public class OI {
         subBumperR = new JoystickButton(subsystemJoystick, 6);
         subBumperR.whenPressed(new HatchDropOff());
 
-        //For the Cargo
-        //subTriggerL = new AnalogTrigger(2);
-        //subTriggerR = new AnalogTrigger(3);
+
+        //Using the numbers for a and b fot test
         subLStick = new JoystickButton(subsystemJoystick, 9);
         subLStick.whileHeld(new CargoIn());
 
