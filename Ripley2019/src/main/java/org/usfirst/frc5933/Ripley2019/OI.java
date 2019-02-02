@@ -91,7 +91,7 @@ public class OI {
         driverJoystick = new Joystick(0);
 
         driverA = new JoystickButton(driverJoystick, 1);
-        subA.whenPressed(new DriveStraightVision(vbus, visionType, threshold));
+        subA.whileHeld(new DriveStraightVision(0.5, SocketVisionSender.StartDepth, 0.4));
 
         //For the CricketLegs
         subA = new JoystickButton(subsystemJoystick, 1);
