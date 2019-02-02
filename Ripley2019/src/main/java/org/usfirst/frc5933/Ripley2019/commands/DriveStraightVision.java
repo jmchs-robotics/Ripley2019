@@ -17,6 +17,7 @@ public class DriveStraightVision extends Command {
 	String vision;
 	double threshold;
 	final double kP = 1;
+	public boolean isActive = false;
 
 	/**
 	 * Instantiate a command to drive the robot to a set target
@@ -53,9 +54,14 @@ public class DriveStraightVision extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		if (!isActive){
+			return;
+		}
+
 		double error = -1;
 		double proportion = 1;
 		double coefficient = 1;
+
 
 		if(vision.equalsIgnoreCase(SocketVisionSender.StartRFT)) { error = Robot.rft_.get_degrees_x(); }
 		if(vision.equalsIgnoreCase(SocketVisionSender.PlatformBlueSearch) || 
@@ -79,8 +85,8 @@ public class DriveStraightVision extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Robot.roboRio.getYAccelerationComparedToThreshold(threshold, true) || 
-				initDistance - Robot.driveTrain.getRightEncoderPos(0) < 18 * DriveTrain.kEncoderTicksPerInch; 
+		return Robot.roboRio.getYAccelerationComparedToThreshold(threshold, true); 
+		//|| initDistance - Robot.driveTrain.getRightEncoderPos(0) < 18 * DriveTrain.kEncoderTicksPerInch; 
 	}
 
 	// Called once after isFinished returns true

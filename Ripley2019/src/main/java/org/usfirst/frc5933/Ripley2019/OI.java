@@ -90,8 +90,9 @@ public class OI {
         
         driverJoystick = new Joystick(0);
 
+        //Mashing Button to enable vision proccessing to drive towards target
         driverA = new JoystickButton(driverJoystick, 1);
-        subA.whileHeld(new DriveStraightVision(0.5, SocketVisionSender.StartDepth, 0.4));
+        driverA.whileHeld(new SemiAutoDriving());
 
         //For the CricketLegs
         subA = new JoystickButton(subsystemJoystick, 1);
@@ -108,7 +109,7 @@ public class OI {
         subBumperR.whenPressed(new HatchDropOff());
 
 
-        //Using the numbers for a and b fot test
+        //Cargo
         subLStick = new JoystickButton(subsystemJoystick, 9);
         subLStick.whileHeld(new CargoIn());
 

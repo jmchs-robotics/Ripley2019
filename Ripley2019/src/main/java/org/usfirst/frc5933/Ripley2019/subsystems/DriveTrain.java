@@ -299,7 +299,7 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void arcadeDrive() {
-		robotDrive.arcadeDrive( -Robot.oi.driverJoystick.getY(), -Robot.oi.driverJoystick.getX());
+		robotDrive.arcadeDrive( -Robot.oi.driverJoystick.getX(), -Robot.oi.driverJoystick.getY());
 	}
 	
 	public void tankDrive(double leftVal, double rightVal) {
