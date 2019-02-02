@@ -1,7 +1,7 @@
 package org.usfirst.frc5933.Ripley2019.commands;
 
 import org.usfirst.frc5933.Ripley2019.Robot;
-import org.usfirst.frc5933.Ripley2019.SocketVisionSender;
+//import org.usfirst.frc5933.Ripley2019.SocketVisionSender;
 import org.usfirst.frc5933.Ripley2019.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -40,16 +40,16 @@ public class DriveStraightVision extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.sender_.setSendData(vision);
+		//Robot.sender_.setSendData(vision);
 
 		initHeading = Robot.driveTrain.getGyroHeading();
 
-		if(vision.equalsIgnoreCase(SocketVisionSender.StartRFT)) {
+		/** if(vision.equalsIgnoreCase(SocketVisionSender.StartRFT)) {
 			initDistance = Robot.rft_.get_distance() * DriveTrain.kEncoderTicksPerInch;
 		}	
 		if(vision.equalsIgnoreCase(SocketVisionSender.PlatformBlueSearch) || vision.equalsIgnoreCase(SocketVisionSender.PlatformRedSearch)) {
 			initDistance = Robot.platform_.get_distance();
-		}
+		} */
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -63,7 +63,7 @@ public class DriveStraightVision extends Command {
 		double coefficient = 1;
 
 
-		if(vision.equalsIgnoreCase(SocketVisionSender.StartRFT)) { error = Robot.rft_.get_degrees_x(); }
+		/** if(vision.equalsIgnoreCase(SocketVisionSender.StartRFT)) { error = Robot.rft_.get_degrees_x(); }
 		if(vision.equalsIgnoreCase(SocketVisionSender.PlatformBlueSearch) || 
 				vision.equalsIgnoreCase(SocketVisionSender.PlatformRedSearch)) { error = Robot.platform_.get_degrees_x(); }
 		
@@ -74,7 +74,7 @@ public class DriveStraightVision extends Command {
 			proportion = error * kP;
 			//drive vision
 			if(error == 0) initHeading = Robot.driveTrain.getGyroHeading();
-		}
+		} */
 
 		coefficient = (initDistance - Robot.driveTrain.getRightEncoderPos(0)) / initDistance;
 		coefficient = Robot.driveTrain.thresholdVBus(coefficient);

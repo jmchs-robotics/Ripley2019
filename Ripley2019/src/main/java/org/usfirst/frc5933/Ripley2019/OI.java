@@ -92,7 +92,8 @@ public class OI {
 
         //Mashing Button to enable vision proccessing to drive towards target
         driverA = new JoystickButton(driverJoystick, 1);
-        driverA.whileHeld(new SemiAutoDriving());
+        driverA.whenPressed(new DriveStraightVision(0.5, "MrHall is Awesome", 0.4));
+        driverA.whenReleased(new DefaultTeleopCommand());
 
         //For the CricketLegs
         subA = new JoystickButton(subsystemJoystick, 1);

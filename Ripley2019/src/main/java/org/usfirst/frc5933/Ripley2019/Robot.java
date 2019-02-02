@@ -23,7 +23,7 @@ import org.usfirst.frc5933.Ripley2019.commands.*;
 import org.usfirst.frc5933.Ripley2019.subsystems.*;
 
 import org.usfirst.frc5933.Ripley2019.SocketVision;
-import org.usfirst.frc5933.Ripley2019.SocketVisionSender;
+//import org.usfirst.frc5933.Ripley2019.SocketVisionSender;
 import org.usfirst.frc5933.Ripley2019.RobotMap;
 
 /**
@@ -42,7 +42,7 @@ public class Robot extends TimedRobot {
 	public static SocketVision platform_;	//5804
 
 	//socket sender. One is needed per IP to send to
-	public static SocketVisionSender sender_;
+	//public static SocketVisionSender sender_;
 
 	//Socket constants
 	public static final boolean show_debug_vision = false;
@@ -119,7 +119,7 @@ public class Robot extends TimedRobot {
 		cam1.setResolution(160, 120);
 		cam0.setResolution(160, 120);
 
-		semiAutoDriving = new DriveStraightVision(0.5, SocketVisionSender.StartDepth, 0.4);
+		//semiAutoDriving = new DriveStraightVision(0.5, SocketVisionSender.StartDepth, 0.4);
 	}
 	
     	/** 
@@ -147,7 +147,7 @@ public class Robot extends TimedRobot {
 			}
 		}
 
-		if(sender_ != null) {
+		/** if(sender_ != null) {
 			try {
 				sender_.stoprunning();
 				sender_.join();
@@ -155,7 +155,7 @@ public class Robot extends TimedRobot {
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 	}
 
     	/**
@@ -204,7 +204,7 @@ public class Robot extends TimedRobot {
 			}
 		}
 
-		if(sender_ == null) {
+		/** if(sender_ == null) {
 			sender_ = new SocketVisionSender("10.59.33.255", 5800);
 			if(show_debug_vision) {
 				System.out.println("Sender started");
@@ -222,7 +222,7 @@ public class Robot extends TimedRobot {
 					}
 				}
 			}
-        }
+		} */
 	}
 
 
