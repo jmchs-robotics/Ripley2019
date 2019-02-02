@@ -79,5 +79,19 @@ public class RoboRio extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
+   /* public boolean getYAccelerationComparedToThreshold(double threshold, boolean accelerationOver) {
+		return (accelerometer.getY() >= threshold) && accelerationOver;
+	}
+	
+	public double getYAccel() {
+		return accelerometer.getY();
+	}
+	
+	@Override
+	public void periodic() {
+		SmartDashboard.putNumber("Y accel: ", getYAccel());
+		//SmartDashboard.putString("Sender Output", Robot.sender_.getData());
+    }
+    */
 }
 
