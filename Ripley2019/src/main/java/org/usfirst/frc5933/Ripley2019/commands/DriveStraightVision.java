@@ -17,7 +17,7 @@ public class DriveStraightVision extends Command {
 	String vision;
 	double threshold;
 	final double kP = 1;
-	public boolean isActive = false;
+	// 	public boolean isActive = false;
 
 	/**
 	 * Instantiate a command to drive the robot to a set target
@@ -54,37 +54,48 @@ public class DriveStraightVision extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (!isActive){
+		/* if (!isActive){
 			return;
-		}
+		} */
 
 		double error = -1;
-		double proportion = 1;
+		double proportion = 0;
 		double coefficient = 1;
 
+		// tracking to the RFT target
+		error = Robot.rft_.get_degrees_x();
 
-		/** if(vision.equalsIgnoreCase(SocketVisionSender.StartRFT)) { error = Robot.rft_.get_degrees_x(); }
+		/* 
+		// 2018 Eve: Tracking RFT or the edge of the platform
+		if(vision.equalsIgnoreCase(SocketVisionSender.StartRFT)) { error = Robot.rft_.get_degrees_x(); }
 		if(vision.equalsIgnoreCase(SocketVisionSender.PlatformBlueSearch) || 
 				vision.equalsIgnoreCase(SocketVisionSender.PlatformRedSearch)) { error = Robot.platform_.get_degrees_x(); }
-		
+		*/
+		// if the vision isn't finding anything, drive straight based on gyro reading
 		if(error == -1) {
 			proportion = DriveTrain.kPGyroConstant * (Robot.driveTrain.getGyroHeading() - initHeading);
 
-		} else {
+		} else { 
 			proportion = error * kP;
 			//drive vision
 			if(error == 0) initHeading = Robot.driveTrain.getGyroHeading();
-		} */
+		}
 
+		coefficient = 1;
+		/* 
+		// amplify the correction with the distance to the target
 		coefficient = (initDistance - Robot.driveTrain.getRightEncoderPos(0)) / initDistance;
 		coefficient = Robot.driveTrain.thresholdVBus(coefficient);
+		*/
 
+		
 		Robot.driveTrain.tankDrive(coefficient * (vBus - proportion), -coefficient * (vBus + proportion));
 
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
+		// bail when we run into the target... or anything else
 		return Robot.roboRio.getYAccelerationComparedToThreshold(threshold, true); 
 		//|| initDistance - Robot.driveTrain.getRightEncoderPos(0) < 18 * DriveTrain.kEncoderTicksPerInch; 
 	}

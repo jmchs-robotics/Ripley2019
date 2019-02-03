@@ -90,7 +90,7 @@ public class OI {
         
         driverJoystick = new Joystick(0);
 
-        //Mashing Button to enable vision proccessing to drive towards target
+        //Mashing Button enables vision proccessing to automatically drive towards RFT target.
         driverA = new JoystickButton(driverJoystick, 1);
         driverA.whenPressed(new DriveStraightVision(0.5, "MrHall is Awesome", 0.4));
         driverA.whenReleased(new DefaultTeleopCommand());

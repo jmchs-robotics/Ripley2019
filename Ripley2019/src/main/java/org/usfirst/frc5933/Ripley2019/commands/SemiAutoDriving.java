@@ -11,6 +11,9 @@ import org.usfirst.frc5933.Ripley2019.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * Have the robot drive itself into the target based on RFT vision processing.
+ */
 public class SemiAutoDriving extends Command {
   public SemiAutoDriving() {
     // Use requires() here to declare subsystem dependencies
@@ -27,7 +30,7 @@ public class SemiAutoDriving extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.semiAutoDriving.isActive = true;
+    // Robot.semiAutoDriving.isActive = true;
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -39,7 +42,7 @@ public class SemiAutoDriving extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.semiAutoDriving.isActive = false;
+    // Robot.semiAutoDriving.isActive = false;
   }
 
   // Called when another command which requires one or more of the same
