@@ -31,7 +31,7 @@ public class DriveStraightVision extends Command {
 	public DriveStraightVision(double vbus, String visionType, double threshold) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
-		requires(Robot.driveTrain);
+		requires(Robot.driveTrain); 
 
 		this.vision = visionType;
 		this.vBus = vbus;
