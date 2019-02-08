@@ -89,7 +89,8 @@ public class DriveStraightVision extends Command {
 		*/
 
 		
-		Robot.driveTrain.tankDrive(coefficient * (vBus - proportion), -coefficient * (vBus + proportion));
+		//Robot.driveTrain.tankDrive(coefficient * (vBus - proportion), -coefficient * (vBus + proportion));
+		Robot.driveTrain.tankDrive(coefficient * (vBus + proportion), -coefficient * (vBus - proportion));
 
 	}
 

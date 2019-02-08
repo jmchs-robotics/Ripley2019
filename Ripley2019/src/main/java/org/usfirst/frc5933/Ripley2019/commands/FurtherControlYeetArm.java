@@ -11,10 +11,11 @@ import org.usfirst.frc5933.Ripley2019.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class YeetArmForward extends Command {
-  public YeetArmForward() {
+public class FurtherControlYeetArm extends Command {
+  public FurtherControlYeetArm() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+
     requires(Robot.yeetArm);
   }
 
@@ -26,7 +27,7 @@ public class YeetArmForward extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.yeetArm.setSpeed(Robot.oi.getSubsystemJoystick().getY());
+    Robot.yeetArm.moveYeet();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -44,6 +45,5 @@ public class YeetArmForward extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }
