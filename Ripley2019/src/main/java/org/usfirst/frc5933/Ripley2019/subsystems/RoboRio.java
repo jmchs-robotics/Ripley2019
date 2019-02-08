@@ -75,7 +75,12 @@ public class RoboRio extends Subsystem {
     // here. Call these from Commands.
 
     public boolean getYAccelerationComparedToThreshold(double threshold, boolean accelerationOver) {
-		return (accelerometer.getY() >= threshold) && accelerationOver;
+        //return (accelerometer.getY() >= threshold) && accelerationOver;
+        if (threshold < 0) {
+            return threshold > accelerometer.getY() && accelerationOver;
+        } else {
+            return threshold < accelerometer.getY() && accelerationOver;
+        }
 	}
 	
 	public double getYAccel() {
