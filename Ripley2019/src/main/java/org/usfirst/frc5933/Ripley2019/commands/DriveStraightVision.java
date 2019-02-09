@@ -3,8 +3,10 @@ package org.usfirst.frc5933.Ripley2019.commands;
 import org.usfirst.frc5933.Ripley2019.Robot;
 //import org.usfirst.frc5933.Ripley2019.SocketVisionSender;
 import org.usfirst.frc5933.Ripley2019.subsystems.DriveTrain;
+import org.usfirst.frc5933.Ripley2019.subsystems.RoboRio;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -16,6 +18,8 @@ public class DriveStraightVision extends Command {
 	double vBus;
 	String vision;
 	double threshold;
+	double worstYAccel;
+	double agy;
 	final double kP = 1;
 	// 	public boolean isActive = false;
 
@@ -43,6 +47,7 @@ public class DriveStraightVision extends Command {
 		//Robot.sender_.setSendData(vision);
 
 		initHeading = Robot.driveTrain.getGyroHeading();
+		agy = RoboRio.accelerometer.getY();
 
 		/** if(vision.equalsIgnoreCase(SocketVisionSender.StartRFT)) {
 			initDistance = Robot.rft_.get_distance() * DriveTrain.kEncoderTicksPerInch;
@@ -61,6 +66,12 @@ public class DriveStraightVision extends Command {
 		double error = -1;
 		double proportion = 0;
 		double coefficient = 1;
+
+		if(agy <= 0)
+		{
+			worstYAccel = agy;
+		}
+		SmartDashboard.putNumber("WorstYAccel", worstYAccel);
 
 		// tracking to the RFT target
 		error = Robot.rft_.get_degrees_x();

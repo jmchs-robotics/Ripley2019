@@ -92,7 +92,7 @@ public class OI {
 
         //Mashing Button enables vision proccessing to automatically drive towards RFT target.
         driverA = new JoystickButton(driverJoystick, 1);
-        driverA.whenPressed(new DriveStraightVision(0.5, "MrHall is Awesome", 0.4));
+        driverA.whenPressed(new DriveStraightVision(1.12, "MrHall is Awesome", 0.4));
         driverA.whenReleased(new DefaultTeleopCommand());
 
         //For the CricketLegs
