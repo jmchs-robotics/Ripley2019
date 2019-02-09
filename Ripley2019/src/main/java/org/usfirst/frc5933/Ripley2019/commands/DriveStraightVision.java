@@ -16,7 +16,7 @@ public class DriveStraightVision extends Command {
 	double vBus;
 	String vision;
 	double threshold;
-	final double kP = 1;
+	final double kP = 1/320.0;
 	// 	public boolean isActive = false;
 
 	/**
@@ -90,7 +90,7 @@ public class DriveStraightVision extends Command {
 
 		
 		//Robot.driveTrain.tankDrive(coefficient * (vBus - proportion), -coefficient * (vBus + proportion));
-		Robot.driveTrain.tankDrive(coefficient * (vBus - proportion), -coefficient * (vBus + proportion));
+		Robot.driveTrain.tankDrive(coefficient * (vBus + proportion), -coefficient * (vBus - proportion));
 
 	}
 
