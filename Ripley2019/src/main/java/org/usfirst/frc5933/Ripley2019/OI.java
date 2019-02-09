@@ -118,38 +118,38 @@ public class OI {
         subRStick.whileHeld(new CargoOut());
 
         //For Shoulder
-        subY = new JoystickButton(subsystemJoystick, 4);
-        subY.whileHeld(new MoveArmUp());
-
-        subX = new JoystickButton(subsystemJoystick, 3);
-        subX.whileHeld(new MoveArmDown());
-
-
-        subDPadUp = new POVButton(subsystemJoystick, 90);
+        subDPadUp = new POVButton(subsystemJoystick, 0);
         subDPadUp.whenPressed(new MoveArmUp());
 
-        subDPadUpLeft = new POVButton(subsystemJoystick, 135);
+        subDPadUpLeft = new POVButton(subsystemJoystick, 315);
         subDPadUpLeft.whenPressed(new MoveArmUp());
 
         subDPadUpRight = new POVButton(subsystemJoystick, 45);
         subDPadUpRight.whenPressed(new MoveArmUp());
 
-        subDPadDown = new POVButton(subsystemJoystick, 270);
+        subDPadDown = new POVButton(subsystemJoystick, 180);
         subDPadDown.whenPressed(new MoveArmDown());
 
         subDPadDownLeft = new POVButton(subsystemJoystick, 225);
         subDPadDownLeft.whenPressed(new MoveArmDown());
 
-        subDPadDownRight = new POVButton(subsystemJoystick, 315);
+        subDPadDownRight = new POVButton(subsystemJoystick, 135);
         subDPadDownRight.whenPressed(new MoveArmDown());
 
         //For Wrist
-
         subStart = new JoystickButton(subsystemJoystick, 7);
         subStart.whenPressed(new WristIn());
 
         subBack = new JoystickButton(subsystemJoystick, 8);
         subBack.whenPressed(new WristOut());
+
+        //For Yeet
+        subX = new JoystickButton(subsystemJoystick, 3);
+        subX.whenPressed(new FurtherControlYeetArm());
+
+        //extra subsystem buttons
+        subY = new JoystickButton(subsystemJoystick, 4);
+        subY.whenPressed(new NullCommand());
 
 
         // SmartDashboard Buttons

@@ -80,8 +80,7 @@ public class RoboRio extends Subsystem {
         if (threshold < 0)
         {
             return threshold > accelerometer.getY() && accelerationOver;
-        }
-        else{
+        }else{
             return threshold < accelerometer.getY() && accelerationOver;
         }
 	}
