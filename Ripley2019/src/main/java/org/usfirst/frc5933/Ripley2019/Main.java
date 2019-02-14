@@ -8,8 +8,6 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-//Testing testing 123
-
 package org.usfirst.frc5933.Ripley2019;
 
 import edu.wpi.first.wpilibj.RobotBase;
