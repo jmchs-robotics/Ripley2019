@@ -22,6 +22,7 @@ public class DriveStraightVision extends Command {
 	final double kP = 1/320.0/2;
 	double worstYAccel;
 	double AccelerometerGetY;
+	double agy;
   
 	// 	public boolean isActive = false;
 
@@ -103,7 +104,7 @@ public class DriveStraightVision extends Command {
 
 		
 		//Robot.driveTrain.tankDrive(coefficient * (vBus - proportion), -coefficient * (vBus + proportion));
-		Robot.driveTrain.tankDrive(coefficient * (vBus + proportion), -coefficient * (vBus - proportion));
+		Robot.driveTrain.tankDrive(coefficient * (vBus - proportion), -coefficient * (vBus + proportion));
 
 	}
 

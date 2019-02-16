@@ -72,12 +72,16 @@ public class YeetArm extends Subsystem {
         yeetArmSubsystemMotor.set(speed);  
     }
 
-    public void moveYeet() {
+  /*  public void moveYeet() {
         if (okayToRun == true) {
             yeetArmSubsystemMotor.setSpeed(Robot.oi.getSubsystemJoystick().getY());
         } else {
             yeetArmSubsystemMotor.setSpeed(0);
         }
+    }*/
+
+    public void stopMotors() {
+        yeetArmSubsystemMotor.stopMotor();
     }
 
     public void stopYeet() {

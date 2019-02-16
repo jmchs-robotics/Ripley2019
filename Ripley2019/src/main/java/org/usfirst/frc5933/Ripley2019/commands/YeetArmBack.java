@@ -9,47 +9,43 @@ package org.usfirst.frc5933.Ripley2019.commands;
 
 import org.usfirst.frc5933.Ripley2019.Robot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class HatchToggle extends Command {
-  public HatchToggle(){
+public class YeetArmBack extends Command {
+  public YeetArmBack() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-
-    requires(Robot.hatch);
+    requires(Robot.yeetArm);
   }
-  int numberOTimesPressed = 0;
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    numberOTimesPressed++;
-    Robot.hatch.pressCheck(numberOTimesPressed);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute(){
-    setTimeout(0.2);
+  protected void execute() {
+    Robot.yeetArm.setSpeed(-0.7);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.hatch.setTriggerSolenoidHatch(Value.kOff);
+    Robot.yeetArm.stopMotors();
   }
 
+  
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
     end();
-  }
+    }
 }
