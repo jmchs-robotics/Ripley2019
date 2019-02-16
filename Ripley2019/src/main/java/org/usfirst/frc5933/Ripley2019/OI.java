@@ -81,8 +81,6 @@ public class OI {
     public JoystickButton subRTrigger;
     public JoystickButton subStart;
     public JoystickButton subBack;
-    public Trigger subLTrigger;
-    public Trigger subRTrigger;
     public POVButton subDPadUp;
     public POVButton subDPadDown;
     public POVButton subDPadUpLeft;
