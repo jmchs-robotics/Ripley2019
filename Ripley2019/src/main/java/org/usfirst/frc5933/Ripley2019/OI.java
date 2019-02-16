@@ -117,14 +117,14 @@ public class OI {
         driverB.whenPressed(new CricketLegsIn()); 
 
         //Test on Monday
-        subBumperR = new JoystickButton(subsystemJoystick, 6);
-        subBumperR.whenPressed(new HatchDropOff());
-      
-        subBumperL = new JoystickButton(subsystemJoystick, 5);
-        subBumperL.whenPressed(new HatchPickUp());
-
         // subBumperR = new JoystickButton(subsystemJoystick, 6);
-        // subBumperR.whenPressed(new HatchToggle());
+        // subBumperR.whenPressed(new HatchDropOff());
+      
+        // subBumperL = new JoystickButton(subsystemJoystick, 5);
+        // subBumperL.whenPressed(new HatchPickUp());
+
+        subBumperR = new JoystickButton(subsystemJoystick, 6);
+        subBumperR.whenPressed(new HatchToggle());
       
       
         //Cargo
@@ -161,14 +161,7 @@ public class OI {
         driverStart.whenPressed(new WristOut());
 
         driverBack = new JoystickButton(driverJoystick, 7);
-        driverBack.whileHeld(new WristIn());
-
-        //For YeetArm
-        driverBumperL = new JoystickButton(driverJoystick, 5);
-        driverBumperL.whileHeld(new YeetArmBack());
-
-        driverBumperR = new JoystickButton(driverJoystick, 6);
-        driverBumperR.whenPressed(new YeetArmForward());
+        driverBack.whenPressed(new WristIn());
       
         // SmartDashboard Buttons
         SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
