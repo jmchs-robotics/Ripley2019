@@ -19,9 +19,9 @@ public class DriveStraightVision extends Command {
 	String vision;
 	double threshold;
 
-	final double kP = 1/320.0;
+	final double kP = 1/320.0/2;
 	double worstYAccel;
-	double agy;
+	double AccelerometerGetY;
   
 	// 	public boolean isActive = false;
 
@@ -49,7 +49,7 @@ public class DriveStraightVision extends Command {
 		//Robot.sender_.setSendData(vision);
 
 		initHeading = Robot.driveTrain.getGyroHeading();
-		agy = RoboRio.accelerometer.getY();
+		AccelerometerGetY = RoboRio.accelerometer.getY();
 
 		/** if(vision.equalsIgnoreCase(SocketVisionSender.StartRFT)) {
 			initDistance = Robot.rft_.get_distance() * DriveTrain.kEncoderTicksPerInch;
@@ -69,9 +69,9 @@ public class DriveStraightVision extends Command {
 		double proportion = 0;
 		double coefficient = 1;
 
-		if(agy <= 0)
+		if(AccelerometerGetY <= 0)
 		{
-			worstYAccel = agy;
+			worstYAccel = AccelerometerGetY;
 		}
 		SmartDashboard.putNumber("WorstYAccel", worstYAccel);
 

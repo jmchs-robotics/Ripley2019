@@ -12,6 +12,7 @@
 package org.usfirst.frc5933.Ripley2019.subsystems;
 
 
+import org.usfirst.frc5933.Ripley2019.Robot;
 import org.usfirst.frc5933.Ripley2019.commands.*;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -71,8 +72,8 @@ public class Arm extends Subsystem {
 
         }
 
-        public void teleopPeriodic(){
-            
+        public void moveArm() {
+            armSubsystemMotor.set(Robot.oi.subsystemJoystick.getY());
         }
 
         public void autonomousPeriodic(){

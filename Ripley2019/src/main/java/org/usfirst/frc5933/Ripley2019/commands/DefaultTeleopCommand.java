@@ -57,9 +57,9 @@ public class DefaultTeleopCommand extends Command {
         Robot.oi.getSubsystemJoystick().setThrottleChannel(3);
         Robot.cargo.setCargoMotorSpeed(Robot.oi.getSubsystemJoystick().getThrottle());
         SmartDashboard.putNumber("Throttle Channel:",Robot.oi.getSubsystemJoystick().getThrottleChannel());
-        //YeetArm
+        //Arm arm
     //  Robot.yeetArm.setSpeed(Robot.oi.getSubsystemJoystick().getY());
-        Robot.yeetArm.moveYeet();
+        Robot.arm.moveArm();;
     }
 
     // Make this return true when this Command no longer needs to run execute()

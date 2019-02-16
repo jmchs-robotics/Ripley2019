@@ -15,6 +15,7 @@ import org.usfirst.frc5933.Ripley2019.commands.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.AnalogTrigger;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.JoystickBase;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
@@ -59,6 +60,8 @@ public class OI {
     public Joystick driverJoystick;
 
     public JoystickButton driverA;
+    public JoystickButton driverBumperL;
+    public JoystickButton driverBumperR;
 
     public Joystick subsystemJoystick;
 
@@ -74,6 +77,8 @@ public class OI {
     public JoystickButton subRStick;
     public JoystickButton subStart;
     public JoystickButton subBack;
+    public Trigger subLTrigger;
+    public Trigger subRTrigger;
     public POVButton subDPadUp;
     public POVButton subDPadDown;
     public POVButton subDPadUpLeft;
@@ -95,6 +100,13 @@ public class OI {
         driverA.whenPressed(new DriveStraightVision(1.12, "MrHall is Awesome", 0.4));
         driverA.whenReleased(new DefaultTeleopCommand());
 
+        //for yeet arm
+        // driverBumperL = new JoystickButton(driverJoystick, 5);
+        // driverBumperL.whileHeld(new YeetArmBackward());
+
+        // driverBumperR = new JoystickButton(driverJoystick, 6);
+        // driverBumperR.whileHeld(new YeetArmForward());
+
         //For the CricketLegs
         subA = new JoystickButton(subsystemJoystick, 1);
         subA.whenPressed(new CricketLegsOut());
@@ -109,6 +121,9 @@ public class OI {
         subBumperR = new JoystickButton(subsystemJoystick, 6);
         subBumperR.whenPressed(new HatchDropOff());
 
+        // subBumperR = new JoystickButton(subsystemJoystick, 6);
+        // subBumperR.whenPressed(new HatchToggle());
+
 
         //Cargo
         subLStick = new JoystickButton(subsystemJoystick, 9);
@@ -117,24 +132,24 @@ public class OI {
         subRStick = new JoystickButton(subsystemJoystick, 10);
         subRStick.whileHeld(new CargoOut());
 
-        //For Shoulder
-        subDPadUp = new POVButton(subsystemJoystick, 0);
-        subDPadUp.whenPressed(new MoveArmUp());
+        // //For Shoulder
+        // subDPadUp = new POVButton(subsystemJoystick, 0);
+        // subDPadUp.whenPressed(new MoveArmUp());
 
-        subDPadUpLeft = new POVButton(subsystemJoystick, 315);
-        subDPadUpLeft.whenPressed(new MoveArmUp());
+        // subDPadUpLeft = new POVButton(subsystemJoystick, 315);
+        // subDPadUpLeft.whenPressed(new MoveArmUp());
 
-        subDPadUpRight = new POVButton(subsystemJoystick, 45);
-        subDPadUpRight.whenPressed(new MoveArmUp());
+        // subDPadUpRight = new POVButton(subsystemJoystick, 45);
+        // subDPadUpRight.whenPressed(new MoveArmUp());
 
-        subDPadDown = new POVButton(subsystemJoystick, 180);
-        subDPadDown.whenPressed(new MoveArmDown());
+        // subDPadDown = new POVButton(subsystemJoystick, 180);
+        // subDPadDown.whenPressed(new MoveArmDown());
 
-        subDPadDownLeft = new POVButton(subsystemJoystick, 225);
-        subDPadDownLeft.whenPressed(new MoveArmDown());
+        // subDPadDownLeft = new POVButton(subsystemJoystick, 225);
+        // subDPadDownLeft.whenPressed(new MoveArmDown());
 
-        subDPadDownRight = new POVButton(subsystemJoystick, 135);
-        subDPadDownRight.whenPressed(new MoveArmDown());
+        // subDPadDownRight = new POVButton(subsystemJoystick, 135);
+        // subDPadDownRight.whenPressed(new MoveArmDown());
 
         //For Wrist
         subStart = new JoystickButton(subsystemJoystick, 7);
