@@ -82,12 +82,5 @@ public class Hatch extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-    public void pressCheck(int buttonPresses){
-        if(buttonPresses % 2 == 0){
-            setTriggerSolenoidHatch(Value.kReverse);
-        } else{
-            setTriggerSolenoidHatch(Value.kForward);
-        }  
-    }
 }
 
