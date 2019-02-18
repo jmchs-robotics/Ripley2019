@@ -45,7 +45,7 @@ public class Robot extends TimedRobot {
 	//public static SocketVisionSender sender_;
 
 	//Socket constants
-	public static final boolean show_debug_vision = false;
+	public static final boolean show_debug_vision = true;
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
