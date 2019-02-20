@@ -9,16 +9,20 @@ package org.usfirst.frc5933.Ripley2019.commands;
 
 import org.usfirst.frc5933.Ripley2019.Robot;
 import org.usfirst.frc5933.Ripley2019.subsystems.Arm;
+import org.usfirst.frc5933.Ripley2019.subsystems.Arm.ArmPosition;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class MoveArmToRocketOne extends Command {
+
+  //ArmPosition pos;
+
   public MoveArmToRocketOne() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
 
-  public int firstArmPosition = 300;
+  //ArmPosition firstArmPosition = ArmPosition.RocketHatchOne;
 
   // Called just before this Command runs the first time
   @Override
@@ -28,7 +32,7 @@ public class MoveArmToRocketOne extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.arm.moveArmEncoder(firstArmPosition);
+    //Robot.arm.armPositionControl(firstArmPosition, 0);
   }
 
   // Make this return true when this Command no longer needs to run execute()
