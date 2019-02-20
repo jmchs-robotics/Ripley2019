@@ -68,7 +68,7 @@ public class RobotMap {
 //    public static DoubleSolenoid wristSubsystemSolenoid;
     
     //roborio objects
-    public static DigitalInput[] DIPs;
+    // public static DigitalInput[] DIPs;
     public static BuiltInAccelerometer Accelerometer;
 
     //camera
@@ -106,12 +106,12 @@ public class RobotMap {
         
         //instantiate the array of digital inputs on the RIO. This contains all accessible DIPs (a bit overkill,
         //but useful for planning ahead).
-        DIPs = new DigitalInput[10];
+        // DIPs = new DigitalInput[10];
         
         //create each individual dip.
-        for(int i = 0; i < DIPs.length; i ++) {
-        	DIPs[i] = new DigitalInput(i);
-        }
+        // for(int i = 0; i < DIPs.length; i ++) {
+        // 	DIPs[i] = new DigitalInput(i);
+        // }
         
         //instantiate the accelerometer present in all RIOs. On the RIO casing, the arrows point to the positive direction.
         Accelerometer = new BuiltInAccelerometer();

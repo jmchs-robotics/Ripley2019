@@ -15,14 +15,14 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class MoveArmToRocketOne extends Command {
 
-  //ArmPosition pos;
+  ArmPosition pos;
 
   public MoveArmToRocketOne() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
 
-  //ArmPosition firstArmPosition = ArmPosition.RocketHatchOne;
+  ArmPosition firstArmPosition = ArmPosition.RocketHatchOne;
 
   // Called just before this Command runs the first time
   @Override
@@ -32,13 +32,13 @@ public class MoveArmToRocketOne extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //Robot.arm.armPositionControl(firstArmPosition, 0);
+    Robot.arm.armPositionControl(firstArmPosition);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return Robot.arm.getWithinThreshold(pos.getPos(), 1);
   }
 
   // Called once after isFinished returns true
