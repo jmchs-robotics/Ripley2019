@@ -127,9 +127,32 @@ public class Arm extends Subsystem {
 			armSubsystemMotor.set(ControlMode.Position, pos.getPos());
         }
 
-        if(getLowerArmSwitch() > 0 && !getWithinThreshold(kArmMinimumEncoderPos, 2)) {
-			armSubsystemMotor.setSelectedSensorPosition(ArmPosition.Start.pos, 0, 10);
-		}
+        // if(getLowerArmSwitch() > 0 && !getWithinThreshold(kArmMinimumEncoderPos, 2)) {
+		// 	armSubsystemMotor.setSelectedSensorPosition(ArmPosition.Start.pos, 0, 10);
+		// }
+    }
+
+    public void armPositionControl(ArmPosition pos) {
+		lastPos = pos;
+
+		SmartDashboard.putString("Actual last position control", lastPos.name());
+
+		switch(pos) {
+		case Continuous:
+			//get continuous position from joystick controller
+			//Range needs to be condensed to values from -1 to 1
+			//continuousArmPositionControl(continuousInput);
+			break;
+		case VBus:
+			//armSubsystemMotor.set(ControlMode.PercentOutput, continuousInput);
+			break;
+		default:
+			armSubsystemMotor.set(ControlMode.Position, pos.getPos());
+        }
+
+        // if(getLowerArmSwitch() > 0 && !getWithinThreshold(kArmMinimumEncoderPos, 2)) {
+		// 	armSubsystemMotor.setSelectedSensorPosition(ArmPosition.Start.pos, 0, 10);
+		// }
     }
     
     /**
@@ -145,7 +168,28 @@ public class Arm extends Subsystem {
 	}
 
         public void moveArm() {
-            armSubsystemMotor.set(Robot.oi.subsystemJoystick.getY());
+            boolean lowerSwitch = Robot.roboRio.DIPs[0].get();
+            boolean upperSwitch = Robot.roboRio.DIPs[1].get();
+            double j = Robot.oi.subsystemJoystick.getY();
+            if (!lowerSwitch) {
+                if(j<0) {
+                    armSubsystemMotor.stopMotor();
+                }
+                else{ 
+                    armSubsystemMotor.set(j);
+                }
+            } 
+             else if (!upperSwitch) {
+                 if( j > 0) {
+                    armSubsystemMotor.stopMotor();
+                 }
+                 else{ 
+                    armSubsystemMotor.set(j);
+                }
+            } else {
+                armSubsystemMotor.set(j);
+            }
+           
         }
 
         public void moveArmEncoder(int num, int pidIdx, int timeoutMs) {
@@ -204,18 +248,18 @@ public class Arm extends Subsystem {
 	 * @return
 	 * 0 if open (false, signal NOT connected to ground); 1 if closed (true, signal connected to ground)
 	 */
-	public int getLowerArmSwitch() {
-		return Robot.RoboRio.readDips(9, 10, true);
-    }
+	// public int getLowerArmSwitch() {
+	// 	return Robot.roboRio.readDips(9, 10, true);
+    // }
     
     /**
 	 * Gets the status of the upper arm switch (DIP 8) as per hardware upgrade between Utah and Idaho regionals.
 	 * @return
 	 * 0 if open (false, signal NOT connected to ground); 1 if closed (true, signal connected to ground)
 	 */
-	public int getUpperArmSwitch() {
-		return Robot.RoboRio.readDips(8, 9, true);
-	}
+	// public int getUpperArmSwitch() {
+	// 	return Robot.roboRio.readDips(8, 9, true);
+	// }
 
     public void setArmFeedback(int timeoutMs) {
         resetEncoder();
@@ -230,13 +274,13 @@ public class Arm extends Subsystem {
 		armSubsystemMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
         armSubsystemMotor.setSelectedSensorPosition(ArmPosition.Start.pos, 0, 10);
         
-        if(getLowerArmSwitch() > 0) {
-			armSubsystemMotor.setSelectedSensorPosition(ArmPosition.Start.pos, 0, 10);
-		}
+        // if(getLowerArmSwitch() > 0) {
+		// 	armSubsystemMotor.setSelectedSensorPosition(ArmPosition.Start.pos, 0, 10);
+		// }
 		
-		if(getUpperArmSwitch() > 0) {
-			armSubsystemMotor.setSelectedSensorPosition(ArmPosition.RocketHatchThree.pos, 0, 10);
-		}
+		// if(getUpperArmSwitch() > 0) {
+		// 	armSubsystemMotor.setSelectedSensorPosition(ArmPosition.RocketHatchThree.pos, 0, 10);
+		// }
     }
     
     public boolean getWithinThreshold(int pos, int threshold) {
