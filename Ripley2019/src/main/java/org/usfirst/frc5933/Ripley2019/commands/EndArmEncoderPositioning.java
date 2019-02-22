@@ -8,16 +8,11 @@
 package org.usfirst.frc5933.Ripley2019.commands;
 
 import org.usfirst.frc5933.Ripley2019.Robot;
-import org.usfirst.frc5933.Ripley2019.subsystems.Arm;
-import org.usfirst.frc5933.Ripley2019.subsystems.Arm.ArmPosition;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class MoveArmToRocketOne extends Command {
-
-  int pos = Arm.rocketHatchOne;
-
-  public MoveArmToRocketOne() {
+public class EndArmEncoderPositioning extends Command {
+  public EndArmEncoderPositioning() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.arm);
@@ -31,7 +26,7 @@ public class MoveArmToRocketOne extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.arm.startEncoderPositioning(1);
+    Robot.arm.endEncoderPositioning();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -43,13 +38,11 @@ public class MoveArmToRocketOne extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.arm.stop();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

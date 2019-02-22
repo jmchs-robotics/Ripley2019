@@ -128,8 +128,8 @@ public class OI {
 
         //for arm positioning
         
-        subB = new JoystickButton(subsystemJoystick, 2);
-        subB.whenPressed(new MoveArmToRocketOne());
+        subA = new JoystickButton(subsystemJoystick, 1);
+        subA.whenPressed(new MoveArmToRocketOne());
       
       
         //Cargo

@@ -50,6 +50,9 @@ public class Arm extends Subsystem {
 	public static boolean encoderPositioningUnderway = false; // true when the subsystem operator is holding one of the encoder position buttons (X, Y, A, whatever)
 	public static int encoderTargetPosition = 0; // set when user hits an encoder-based desired position
 	public static int bottomEncoder = 0, topEncoder = 1100; // values of the encoder whenever the lower or upper switch are triggered
+	public static int rocketHatchOne = 73;
+	public static int rocketHatchTwo = 656;
+	public static int rocketHatchThree = 1119;
 
     public int blindCounter = 0;
     
@@ -101,7 +104,6 @@ public class Arm extends Subsystem {
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
 	}
-	
 
         public void moveArm() {
             boolean lowerSwitch = Robot.roboRio.DIPs[0].get();
@@ -128,9 +130,25 @@ public class Arm extends Subsystem {
            
 		}
 
-        /** public void moveArmEncoder(int num, int pidIdx, int timeoutMs) {
-            armSubsystemMotor.getSelectedSensorPosition(num);
-		}*/
+        public void startEncoderPositioning(int desiredGoalPositioning) {
+			int rocketOne = 1;
+			int rocketTwo = 2;
+			int rocketThree = 3;
+			encoderPositioningUnderway = true;
+			if (desiredGoalPositioning == rocketOne) {
+				encoderTargetPosition = bottomEncoder + rocketHatchOne;
+			} else if (desiredGoalPositioning == rocketTwo) {
+				encoderTargetPosition = bottomEncoder + rocketHatchTwo;
+			} else if (desiredGoalPositioning == rocketThree) {
+				encoderTargetPosition = bottomEncoder + rocketHatchThree;
+			} else {
+				encoderPositioningUnderway = false;
+			}
+		}
+
+		public void endEncoderPositioning() {
+			encoderPositioningUnderway = false;
+		}
 
         public void readArm() {
             SmartDashboard.putNumber("Arm Speed:", armSubsystemMotor.get());
@@ -207,8 +225,8 @@ public class Arm extends Subsystem {
 			}
 			armSubsystemMotor.set(vBus);
 		} else { // otherwise subsystem driver is using the joystick
-		moveArm(); // standard joystick-based arm movement
-	}
+			moveArm(); // standard joystick-based arm movement
+		}
 	
 
     }
