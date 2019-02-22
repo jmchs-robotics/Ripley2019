@@ -127,10 +127,9 @@ public class OI {
         subBumperR.whenPressed(new HatchToggle());
 
         //for arm positioning
-        
         subA = new JoystickButton(subsystemJoystick, 1);
         subA.whenPressed(new MoveArmToRocketOne());
-      
+        subA.whenReleased(new EndArmEncoderPositioning());
       
         //Cargo
         subLTrigger = new JoystickButton(subsystemJoystick, 9);
