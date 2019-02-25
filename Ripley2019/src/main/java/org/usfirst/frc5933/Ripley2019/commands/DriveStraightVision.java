@@ -1,4 +1,4 @@
-package org.usfirst.frc5933.Ripley2019.commands;
+ package org.usfirst.frc5933.Ripley2019.commands;
 
 import org.usfirst.frc5933.Ripley2019.Robot;
 //import org.usfirst.frc5933.Ripley2019.SocketVisionSender;
@@ -19,7 +19,7 @@ public class DriveStraightVision extends Command {
 	String vision;
 	double threshold;
 
-	final double kP = 1/320.0/2;
+	final double kP = 1/320.0 / 4.0;
 	double worstYAccel;
 	double AccelerometerGetY;
 	double agy;
@@ -68,7 +68,7 @@ public class DriveStraightVision extends Command {
 
 		double error = -1;
 		double proportion = 0;
-		double coefficient = 1;
+		double coefficient = 0.4;
 
 		if(AccelerometerGetY <= 0)
 		{
@@ -104,7 +104,7 @@ public class DriveStraightVision extends Command {
 
 		
 		//Robot.driveTrain.tankDrive(coefficient * (vBus - proportion), -coefficient * (vBus + proportion));
-		Robot.driveTrain.tankDrive(coefficient * (vBus - proportion), -coefficient * (vBus + proportion));
+		Robot.driveTrain.tankDrive(coefficient * (vBus + proportion), -coefficient * (vBus - proportion));
 
 	}
 
