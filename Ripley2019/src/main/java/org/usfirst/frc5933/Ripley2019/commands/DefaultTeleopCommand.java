@@ -48,10 +48,19 @@ public class DefaultTeleopCommand extends Command {
     protected void execute() {
         Robot.driveTrain.arcadeDrive(); 
         SmartDashboard.putString("DefaultTeleop Running: ", " execute");
-        SmartDashboard.putString( "Vision Socket direction:", Robot.rft_.get_direction());
-        SmartDashboard.putNumber( "Vision Socket dir offset:", Robot.rft_.get_degrees_x());
-        SmartDashboard.putNumber( "Vision Socket distance:", Robot.rft_.get_distance());
-        
+        try {
+            SmartDashboard.putString( "Vision Socket direction:", Robot.rft_.get_direction());
+            SmartDashboard.putNumber( "Vision Socket dir offset:", Robot.rft_.get_degrees_x());
+            SmartDashboard.putNumber( "Vision Socket distance:", Robot.rft_.get_distance());
+        } catch (Exception e) {
+            SmartDashboard.putString( "Vision Socket direction:", "ERROR Robot.rft_ problem: " + e.toString());
+            SmartDashboard.putNumber( "Vision Socket dir offset:", -100);
+            SmartDashboard.putNumber( "Vision Socket distance:", -100);
+        }
+
+        SmartDashboard.putNumber( "Left encoder:", Robot.driveTrain.getLeftEncoderPos(0));
+        SmartDashboard.putNumber( "Right encoder:", Robot.driveTrain.getRightEncoderPos(0));
+
         Robot.oi.getSubsystemJoystick().setThrottleChannel(2);
         Robot.cargo.setCargoMotorSpeed(-Robot.oi.getSubsystemJoystick().getThrottle());
         Robot.oi.getSubsystemJoystick().setThrottleChannel(3);

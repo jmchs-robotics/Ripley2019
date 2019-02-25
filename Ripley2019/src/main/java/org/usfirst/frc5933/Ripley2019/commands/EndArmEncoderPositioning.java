@@ -10,6 +10,7 @@ package org.usfirst.frc5933.Ripley2019.commands;
 import org.usfirst.frc5933.Ripley2019.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc5933.Ripley2019.subsystems.Arm;
 
 public class EndArmEncoderPositioning extends Command {
   public EndArmEncoderPositioning() {

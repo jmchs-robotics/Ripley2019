@@ -62,6 +62,7 @@ public class OI {
     public JoystickButton driverA;
     public JoystickButton driverBumperL;
     public JoystickButton driverBumperR;
+    public JoystickButton driverX;
     public JoystickButton driverY;
     public JoystickButton driverB;
     public JoystickButton driverStart;
@@ -99,8 +100,15 @@ public class OI {
  
         //Mashing Button enables vision proccessing to automatically drive towards RFT target.
         driverA = new JoystickButton(driverJoystick, 1);
-        driverA.whenPressed(new DriveStraightVision(0.7, "MrHall is Awesome", 1.16));
+        driverA.whenPressed(new DriveStraightVision(0.4, "MrHall is Awesome", -1.16));
         driverA.whenReleased(new DefaultTeleopCommand());
+
+        // Test: mashing Button drives an arc.
+        driverX = new JoystickButton(driverJoystick, 3);
+        // driverX.whenPressed(new DriveArc(-0.7, 47, 180, 1.1)); // trying 47" radius
+        // driverX.whenPressed(new DriveArc(-0.7, 27, 180, 1.1)); // trying 27" radius
+        driverX.whenPressed(new Path2CG());
+        driverX.whenReleased(new DefaultTeleopCommand());
 
         //for yeet arm
         driverBumperL = new JoystickButton(driverJoystick, 5);
@@ -127,10 +135,9 @@ public class OI {
         subBumperR.whenPressed(new HatchToggle());
 
         //for arm positioning
-        
         subA = new JoystickButton(subsystemJoystick, 1);
         subA.whenPressed(new MoveArmToRocketOne());
-      
+        subA.whenReleased(new EndArmEncoderPositioning());
       
         //Cargo
         subLTrigger = new JoystickButton(subsystemJoystick, 9);
