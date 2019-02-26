@@ -1,4 +1,4 @@
- package org.usfirst.frc5933.Ripley2019.commands;
+package org.usfirst.frc5933.Ripley2019.commands;
 
 import org.usfirst.frc5933.Ripley2019.Robot;
 //import org.usfirst.frc5933.Ripley2019.SocketVisionSender;
@@ -13,10 +13,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class DriveArc extends Command {
 
+	// set to true for encoder-based (isFinished() gone far enough) end, set to false for gyro-based end
+	final boolean endBasedOnEncoder = false;
+
 	// If encoder is on the left, use +1. Eve's is on the R, so -1.  If Ripley's is on the R, use -1
 	int encoderS = -1; 
 
-	final double kP = 0.00100; // P coefficient in PID. Identify something that works for the robot.
+	final double kP = 175; // 0.00100; // P coefficient in PID. Identify something that works for the robot.
 	final double halfWheelWidth = 13.0; // 11 for Eve, 10.5 for Ripley.  empirically chose 13 on 2/24 for Eve
 	final double encoderTicksPerInch = 4096 / ( 2 * Math.PI * 2); // 4" dia (2" radius) wheel
 
@@ -29,7 +32,9 @@ public class DriveArc extends Command {
 	
 	double initEncoder;
 	double lastEnc;
+	double heading; // where we're pointed, computed by adding normalized change of each new gyro reading to last heading
 	double lastHeading; // keep the gyro reading from one tick (execute()) to the next
+	double targetHeading; // where we want to end pointing. Not normalized.
 	double distR; // distance the right wheel of the robot will travel to complete the desired arc path
 	double distL; // distance the left wheel of the robot will travel to complete the desired arc path
 	double vBusR; // baseline voltage for the right wheel
@@ -68,19 +73,25 @@ public class DriveArc extends Command {
 			this.vBusR = vbus * (c - halfWheelWidth) / (c + halfWheelWidth); // slower so we turn R
 		}
 		// robot should turn this much for every encoder tick; magnitude should decrease with larger radius
-		//   negative for CCW travel, positive for CW travel
+		//   negative for CCW travel (forward leftward or backwards rightward), positive for CW travel
 		if( encoderS < 0) {
 			this.degPerTick = degrees / distL; 
 		} else {
 			this.degPerTick = degrees / distR;
 		}
 		this.degPerTick *= Math.signum( degrees * vbus);
+
+		this.targetHeading = degrees;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
 
 		lastHeading = Robot.driveTrain.getGyroHeading();
+		targetHeading += lastHeading;
+		heading = lastHeading;
+		
+
 		SmartDashboard.putNumber("initial lastHeading", lastHeading);
 		SmartDashboard.putNumber("initial R encoder", Robot.driveTrain.getRightEncoderPos(0));
 
@@ -111,13 +122,15 @@ public class DriveArc extends Command {
 		double dh = ( h - lastHeading) % 360;
 		if( dh > 180) { dh -= 360; }
 
+		heading += dh; // accumulate our heading, so it doesn't get normalized
+
 		// error is defference between desired degrees change per encoder tick 
 		//    and measured deg change / encoder change
 		double e = degPerTick - dh / denc;
 		double proportion = kP * e;
 
 		if( degPerTick < 0) { // turning left, lag the L side
-			Robot.driveTrain.tankDrive((vBusL + proportion), -vBusR);
+			Robot.driveTrain.tankDrive((vBusL - proportion), -vBusR);
 		}
 		else { // turning right, lag the R side
 			Robot.driveTrain.tankDrive( vBusL, -( vBusR - proportion));
@@ -129,15 +142,24 @@ public class DriveArc extends Command {
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		SmartDashboard.putNumber("current R encoder", Robot.driveTrain.getRightEncoderPos(0));
-		// return true (bail) if we've gone far enough
 		boolean goneFarEnough;
-		if( encoderS > 0) { // left encoder
-			goneFarEnough =	Math.signum(vBusL) * (Robot.driveTrain.getLeftEncoderPos(0) - initEncoder)
-				 > distL;
+
+		if( endBasedOnEncoder) {
+			// return true (bail) if we've gone far enough
+			if( encoderS > 0) { // left encoder
+				goneFarEnough =	Math.signum(vBusL) * (Robot.driveTrain.getLeftEncoderPos(0) - initEncoder)
+					> distL;
+			} else {
+				goneFarEnough = Math.signum(vBusR) * (Robot.driveTrain.getRightEncoderPos(0) - initEncoder) 
+				> distR;
+			}
 		} else {
-			goneFarEnough = Math.signum(vBusR) * (Robot.driveTrain.getRightEncoderPos(0) - initEncoder) 
-			> distR;
+			// multiply both sides by targetHeading in case targetHeading is negative
+			if( heading * targetHeading > targetHeading * targetHeading) {  
+				goneFarEnough = true;
+			}
 		}
+		
 		// bail if we've gone far enough or if we run into anything 
 		return goneFarEnough || Robot.roboRio.getYAccelerationComparedToThreshold(threshold, true); 
 		
