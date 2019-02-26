@@ -114,7 +114,7 @@ public class DriveStraight extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		boolean goneFarEnough;
+		boolean goneFarEnough = false;
 		// have we gone far enough?
 		if(Math.signum(vBus) < 0) {
 			goneFarEnough = getRelevantEncoder() <= endEnc;

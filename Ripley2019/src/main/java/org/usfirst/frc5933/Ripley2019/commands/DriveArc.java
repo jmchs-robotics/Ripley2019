@@ -142,7 +142,7 @@ public class DriveArc extends Command {
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		SmartDashboard.putNumber("current R encoder", Robot.driveTrain.getRightEncoderPos(0));
-		boolean goneFarEnough;
+		boolean goneFarEnough = false;
 
 		if( endBasedOnEncoder) {
 			// return true (bail) if we've gone far enough
