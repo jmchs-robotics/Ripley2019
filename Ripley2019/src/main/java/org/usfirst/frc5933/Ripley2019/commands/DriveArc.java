@@ -1,7 +1,7 @@
 package org.usfirst.frc5933.Ripley2019.commands;
 
 import org.usfirst.frc5933.Ripley2019.Robot;
-//import org.usfirst.frc5933.Ripley2019.SocketVisionSender;
+
 import org.usfirst.frc5933.Ripley2019.subsystems.DriveTrain;
 import org.usfirst.frc5933.Ripley2019.subsystems.RoboRio;
 
@@ -57,6 +57,7 @@ public class DriveArc extends Command {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.driveTrain); 
+		requires(Robot.roboRio);
 
 		this.threshold = threshold;
 		this.distL = encoderTicksPerInch * Math.abs( degrees * Math.PI / 180 * (centerRadius + Math.signum( degrees) * halfWheelWidth));
@@ -87,7 +88,9 @@ public class DriveArc extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 
-		lastHeading = Robot.driveTrain.getGyroHeading();
+		lastHeading = Robot.driveTrain.getGyroHeading(); // roboRio.gyro.getAngle();
+		SmartDashboard.putNumber("initGyro", lastHeading);
+		
 		targetHeading += lastHeading;
 		heading = lastHeading;
 		
@@ -118,7 +121,9 @@ public class DriveArc extends Command {
 		// normalezed to -179 to +180:
 		//    if turning CCW and get to 358 then 359 then 0 (delta 1 then -359 which % 360 = 1 is good)
 		//    or 1 then 0 then 359 (delta -1 then 359 so if > 180 take out - 360)
-		double h = Robot.driveTrain.getGyroHeading();
+		double h = Robot.driveTrain.getGyroHeading(); // gyro.getAngle();
+		SmartDashboard.putNumber("current gyro", h); 
+		
 		double dh = ( h - lastHeading) % 360;
 		if( dh > 180) { dh -= 360; }
 

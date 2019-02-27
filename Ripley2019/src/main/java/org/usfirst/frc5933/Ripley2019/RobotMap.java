@@ -48,7 +48,7 @@ public class RobotMap {
     public static WPI_TalonSRX drivetrainRightFollower2;
     
     //control system objects
-    public static ADXRS450_Gyro Gyro;
+    //public static ADXRS450_Gyro Gyro;
     
     //arm manipulation objects
     public static WPI_TalonSRX armSubsystemMotor;
@@ -99,7 +99,7 @@ public class RobotMap {
         drivetrainRightFollower2 = new WPI_TalonSRX(15);
         
         //instantiate gyro. B/c it is an SPI gyroscope, no need for calibration methods yet
-        Gyro = new ADXRS450_Gyro();
+        //Gyro = new ADXRS450_Gyro();
         
         //instantiate PCM doublesolenoid for the double piston starting from ID 0, slot 0;
 //        armTongsPiston = new DoubleSolenoid(0, 0, 1);
