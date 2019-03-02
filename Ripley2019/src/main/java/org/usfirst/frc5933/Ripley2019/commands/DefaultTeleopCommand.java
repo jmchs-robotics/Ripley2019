@@ -61,11 +61,21 @@ public class DefaultTeleopCommand extends Command {
         SmartDashboard.putNumber( "Left encoder:", Robot.driveTrain.getLeftEncoderPos(0));
         SmartDashboard.putNumber( "Right encoder:", Robot.driveTrain.getRightEncoderPos(0));
 
+        //Get triggers from subsystem joystick to control cargo
         Robot.oi.getSubsystemJoystick().setThrottleChannel(2);
         Robot.cargo.setCargoMotorSpeed(-Robot.oi.getSubsystemJoystick().getThrottle());
         Robot.oi.getSubsystemJoystick().setThrottleChannel(3);
         Robot.cargo.setCargoMotorSpeed(Robot.oi.getSubsystemJoystick().getThrottle());
         SmartDashboard.putNumber("Throttle Channel:",Robot.oi.getSubsystemJoystick().getThrottleChannel());
+       
+         //Get triggers from subsystem joystick to control shudderLeft and shudderRight
+         Robot.oi.getDriverJoystick().setThrottleChannel(2);
+         Robot.driveTrain.shudderLeft(Robot.oi.getDriverJoystick().getThrottle());
+         Robot.oi.getDriverJoystick().setThrottleChannel(3);
+         Robot.driveTrain.shudderRight(Robot.oi.getDriverJoystick().getThrottle());
+         SmartDashboard.putNumber("Throttle Channel:",Robot.oi.getDriverJoystick().getThrottleChannel()); 
+         
+
         //Arm arm
         //Robot.yeetArm.setSpeed(Robot.oi.getSubsystemJoystick().getY());
         Robot.arm.moveArm();
