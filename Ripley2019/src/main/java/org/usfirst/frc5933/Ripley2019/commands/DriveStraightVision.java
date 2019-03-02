@@ -19,7 +19,7 @@ public class DriveStraightVision extends Command {
 	String vision;
 	double threshold;
 
-	final double kP = 1/320.0 / 4.0;
+	final double kP = 1/320.0 / 3.0; // 4.0;
 	double worstYAccel;
 	double AccelerometerGetY;
 	double agy;
