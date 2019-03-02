@@ -12,13 +12,12 @@ import org.usfirst.frc5933.Ripley2019.subsystems.Arm;
 // import org.usfirst.frc5933.Ripley2019.subsystems.Arm.ArmPosition; // from Eve 2018
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class MoveArmToRocketOne extends Command {
+public class MoveArmToRocketThree extends Command {
 
-  int pos = Arm.rocketHatchOne;
+  int pos = Arm.rocketHatchThree;
 
-  public MoveArmToRocketOne() {
+  public MoveArmToRocketThree() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.arm);
@@ -32,8 +31,7 @@ public class MoveArmToRocketOne extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.arm.startEncoderPositioning(1);
- 
+    Robot.arm.startEncoderPositioning(3);
   }
 
   // Make this return true when this Command no longer needs to run execute()

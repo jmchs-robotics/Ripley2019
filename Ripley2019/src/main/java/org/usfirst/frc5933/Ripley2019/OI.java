@@ -138,6 +138,14 @@ public class OI {
         subA = new JoystickButton(subsystemJoystick, 1);
         subA.whenPressed(new MoveArmToRocketOne());
         subA.whenReleased(new EndArmEncoderPositioning());
+
+        subB = new JoystickButton(subsystemJoystick, 2);
+        subB.whenPressed(new MoveArmToRocketTwo());
+        subB.whenReleased(new EndArmEncoderPositioning());
+
+        subY = new JoystickButton(subsystemJoystick, 4);
+        subY.whenPressed(new MoveArmToRocketThree());
+        subY.whenReleased(new EndArmEncoderPositioning());
       
         //Cargo
         subLTrigger = new JoystickButton(subsystemJoystick, 9);
