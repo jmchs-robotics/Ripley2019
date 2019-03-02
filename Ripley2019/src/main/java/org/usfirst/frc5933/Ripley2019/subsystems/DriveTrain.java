@@ -105,7 +105,7 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void init() {
-		gyro = RobotMap.Gyro;
+		gyro = new ADXRS450_Gyro(); // RobotMap.Gyro;
 
         driveTrainLeftMaster = RobotMap.drivetrainLeftMaster;
         driveTrainRightMaster = RobotMap.drivetrainRightMaster;

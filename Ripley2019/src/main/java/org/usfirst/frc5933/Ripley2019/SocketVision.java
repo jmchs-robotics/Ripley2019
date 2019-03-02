@@ -272,7 +272,7 @@ public class SocketVision extends Thread {
 	/**
 	 * Returns the distance error from "inside the camera" in camera units. Can be only be positive. Calculated from target height.
 	 * @return
-	 * The number of units from the camera the target is. -1 if no target is found.
+	 * The number of units from the camera the target is. [-1 if no target is found?  More likely -0.01 or -0.03.]
 	 * @return
 	 */
 	public synchronized double get_distance() {
