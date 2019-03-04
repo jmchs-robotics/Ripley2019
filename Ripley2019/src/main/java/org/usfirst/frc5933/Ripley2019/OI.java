@@ -105,9 +105,9 @@ public class OI {
 
         // Test: mashing Button drives an arc.
         driverX = new JoystickButton(driverJoystick, 3);
-        driverX.whenPressed(new DriveArc(-0.7, 47, 180, 1.1)); // trying 47" radius
+        // driverX.whenPressed(new DriveArc(-0.7, 47, 180, 1.1)); // trying 47" radius
         // driverX.whenPressed(new DriveArc(-0.7, 27, 180, 1.1)); // trying 27" radius
-        // driverX.whenPressed(new Path2CG());
+        driverX.whenPressed(new Path2CG());
         driverX.whenReleased(new DefaultTeleopCommand());
 
         //for yeet arm

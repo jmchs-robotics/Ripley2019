@@ -19,7 +19,7 @@ public class DriveArc extends Command {
 	// If encoder is on the left, use +1. Eve's is on the R, so -1.  If Ripley's is on the R, use -1
 	int encoderS = -1; 
 
-	final double kP = 175; // 0.00100; // P coefficient in PID. Identify something that works for the robot.
+	final double kP = 17.5; // 0.00100; // P coefficient in PID. Identify something that works for the robot.
 	final double halfWheelWidth = 13.0; // 11 for Eve, 10.5 for Ripley.  empirically chose 13 on 2/24 for Eve
 	final double encoderTicksPerInch = 4096 / ( 2 * Math.PI * 2); // 4" dia (2" radius) wheel
 
@@ -35,12 +35,16 @@ public class DriveArc extends Command {
 	double heading; // where we're pointed, computed by adding normalized change of each new gyro reading to last heading
 	double lastHeading; // keep the gyro reading from one tick (execute()) to the next
 	double targetHeading; // where we want to end pointing. Not normalized.
+	double targetHeadingDelta; // how much we want to turn, degrees.  Product of input degrees and sign(input vbus).
 	double distR; // distance the right wheel of the robot will travel to complete the desired arc path
 	double distL; // distance the left wheel of the robot will travel to complete the desired arc path
 	double vBusR; // baseline voltage for the right wheel
 	double vBusL; // baseline voltage for the left wheel
 	double threshold; // stop if we run into anything
-
+	double inputVbus;
+	double inputCenterRadius;
+	double inputDegrees;
+	double inputThreshold;
 	
 	/**
 	 * Instantiate a command to drive the robot along an arc
@@ -58,10 +62,26 @@ public class DriveArc extends Command {
 		// eg. requires(chassis);
 		requires(Robot.driveTrain); 
 		requires(Robot.roboRio);
+	
+		this.inputVbus = vbus;
+		this.inputCenterRadius = centerRadius;
+		this.inputDegrees = degrees;
+		this.inputThreshold = threshold;
+	
+	}
 
-		this.threshold = threshold;
-		this.distL = encoderTicksPerInch * Math.abs( degrees * Math.PI / 180 * (centerRadius + Math.signum( degrees) * halfWheelWidth));
-		this.distR = encoderTicksPerInch * Math.abs( degrees * Math.PI / 180 * (centerRadius - Math.signum( degrees) * halfWheelWidth));
+	// Called just before this Command runs the first time
+	protected void initialize() {
+		this.threshold = inputThreshold;
+		double degrees = inputDegrees;
+		double centerRadius = inputCenterRadius;
+		double vbus = inputVbus;
+
+		this.distL = encoderTicksPerInch 
+		
+		  * Math.abs( degrees * Math.PI / 180 * (centerRadius + Math.signum( degrees) * halfWheelWidth));
+		this.distR = encoderTicksPerInch 
+		  * Math.abs( degrees * Math.PI / 180 * (centerRadius - Math.signum( degrees) * halfWheelWidth));
 		SmartDashboard.putNumber("distR", distR);
 
 		double c = Math.abs( centerRadius);
@@ -80,14 +100,12 @@ public class DriveArc extends Command {
 		} else {
 			this.degPerTick = degrees / distR;
 		}
-		this.degPerTick *= Math.signum( degrees * vbus);
+		// this.degPerTick *= Math.signum( degrees * vbus);
+		this.degPerTick *= Math.signum( vbus);
 
-		this.targetHeading = degrees;
-	}
-
-	// Called just before this Command runs the first time
-	protected void initialize() {
-
+		this.targetHeading = degrees * Math.signum( vbus);
+		this.targetHeadingDelta = this.targetHeading;
+		
 		lastHeading = Robot.driveTrain.getGyroHeading(); // roboRio.gyro.getAngle();
 		SmartDashboard.putNumber("initGyro", lastHeading);
 		
@@ -121,13 +139,13 @@ public class DriveArc extends Command {
 		// normalezed to -179 to +180:
 		//    if turning CCW and get to 358 then 359 then 0 (delta 1 then -359 which % 360 = 1 is good)
 		//    or 1 then 0 then 359 (delta -1 then 359 so if > 180 take out - 360)
-		double h = Robot.driveTrain.getGyroHeading(); // gyro.getAngle();
+		double h = Robot.driveTrain.getGyroHeading(); // turning the robot toward the right is more positive
 		SmartDashboard.putNumber("current gyro", h); 
 		
-		double dh = ( h - lastHeading) % 360;
-		if( dh > 180) { dh -= 360; }
+		double dh = lastHeading - h; // ( h - lastHeading); // trying to invert this after Waterford 3/2/19
+		//if( dh > 180) { dh -= 360; }
 
-		heading += dh; // accumulate our heading, so it doesn't get normalized
+		heading = h; // += dh; // accumulate our heading, so it doesn't get normalized
 
 		// error is defference between desired degrees change per encoder tick 
 		//    and measured deg change / encoder change
@@ -135,10 +153,24 @@ public class DriveArc extends Command {
 		double proportion = kP * e;
 
 		if( degPerTick < 0) { // turning left, lag the L side
-			Robot.driveTrain.tankDrive((vBusL - proportion), -vBusR);
+			//Robot.driveTrain.tankDrive((vBusL - proportion), -vBusR);
+			double x = vBusL - proportion;
+			if( x > 1) x = 1;
+			if( x < -1) x = -1;
+			double y = -vBusR;
+			if( y > 1) y = 1;
+			if( y < -1) y = -1;
+			Robot.driveTrain.tankDrive(x, y);
 		}
 		else { // turning right, lag the R side
-			Robot.driveTrain.tankDrive( vBusL, -( vBusR - proportion));
+			//Robot.driveTrain.tankDrive( vBusL, -( vBusR - proportion));
+			double x = vBusL; 
+			if( x > 1) x = 1;
+			if( x < -1) x = -1;
+			double y = -( vBusR - proportion);
+			if( y > 1) y = 1;
+			if( y < -1) y = -1;
+			Robot.driveTrain.tankDrive(x, y);
 		}
 		lastHeading = h;
 		lastEnc = enc;
@@ -158,9 +190,11 @@ public class DriveArc extends Command {
 				goneFarEnough = Math.signum(vBusR) * (Robot.driveTrain.getRightEncoderPos(0) - initEncoder) 
 				> distR;
 			}
-		} else {
-			// multiply both sides by targetHeading in case targetHeading is negative
-			if( heading * targetHeading > targetHeading * targetHeading) {  
+		} else {  // end based on gyro heading
+			// multiply both sides by targetHeadingDelta in case it's is negative
+			double h = Robot.driveTrain.getGyroHeading();
+			if( h * targetHeadingDelta > targetHeading * targetHeadingDelta) {  
+				// if( h < targetHeading) {
 				goneFarEnough = true;
 			}
 		}

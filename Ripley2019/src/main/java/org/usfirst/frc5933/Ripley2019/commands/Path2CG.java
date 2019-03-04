@@ -54,8 +54,26 @@ public class Path2CG extends CommandGroup {
 		// a CommandGroup containing them would require both the chassis and the
 		// arm.
 		
-		// back up 180deg to right, 47" radius but using 20% less empirically
-		addSequential( new DriveArc( -0.7, 40, 180, .1));
+		//
+		// testing driveArc:
+		//
+		// 3/3/19 driving forward right.
+		// addSequential( new DriveArc( 0.7, 40, 45, -1.6));
+
+		// 3/3/19 driving forward left.
+		addSequential( new DriveArc( 0.7, 40, -45, -1.1)); 
+
+		// 3/3/19 driving backward right
+		// addSequential( new DriveArc( -0.7, 40, 45, 1.6));
+
+		// 3/3/19 driving backward left
+		// addSequential( new DriveArc( -0.7, 40, -45, 1.6));
+
+		
+
+		/*
+		// back up 180deg to right, 47" radius... but using 20% less empirically
+		addSequential( new DriveArc( -0.7, 40, 180, 1.1));
 		// slow down as we complete the back up turn right. all numbers empirical
 		addSequential( new DriveArc( -0.4, 20, 60, 1.1)); 
 		// forward 45deg to left, 27" radius. empirical
@@ -63,7 +81,8 @@ public class Path2CG extends CommandGroup {
 		// fwd 45deg to right, 27" radius. empirical
 		addSequential( new DriveArc( 0.7, 37, 90, -1.1)); 
 		// drive straight in to pick up the disk
-		addSequential( new DriveStraightVision( 0.6, "MrHall is Awesome", -1.16)); // rest of the way in
+		addSequential( new DriveStraightVision( 0.6, "MrHall is Awesome", -0.6)); // rest of the way in
+		*/
 	}
 
 }

@@ -21,7 +21,7 @@ public class DriveStraightVision extends Command {
 	String vision;
 	double threshold;
 
-	final double kP = 1/320.0 / 3.0; // 4.0;
+	final double kP = 1/320.0 / 4.0; // 4.0;  // 4.0 worked well for Eve, practice at Waterford on 3/2/19
 	double worstYAccel;
 	double AccelerometerGetY;
 	double agy;
@@ -29,12 +29,12 @@ public class DriveStraightVision extends Command {
 	// slow down at the end of the approach to the target
 	// count times we actually see the target with the vision co-processor
 	// if we've seen the target enough > vTargetCountMin and we're within a few feet < vDist slow down to vBusSlow
-	boolean slowAtEnd = false; // choosing to slow down at end
+	boolean slowAtEnd = false; // Set to true to enable slowing down at end.
 	int vTargetCount = 0;
 	int vTargetCountMin = 10;
-	double vDistMin = 60; // inches
+	double vDistMin = 60; // inches, compared to distance given by vision processor
 	double vBusSlow = 0.2; 
-	boolean slowSpeed = false; // set to true once we're within vDistMin and targetCount > vTargetCountMin
+	boolean slowSpeed = false; // gets set to true once we're within vDistMin and targetCount > vTargetCountMin
 
 	/**
 	 * Instantiate a command to drive the robot to a set target
@@ -99,15 +99,15 @@ public class DriveStraightVision extends Command {
 		SmartDashboard.putNumber("WorstYAccel", worstYAccel);
 
 		// tracking to the RFT target
-		error = Robot.rft_.get_degrees_x();
+		error = Robot.rft_.get_degrees_x();  // If the robot needs to turn more rightward, this number is more positive
 
 		// if the vision didn't provide a new value or isn't finding anything, drive straight based on gyro reading
 		if(( error == 0) || ( error > -0.0011 && error < -0.0009)  // no new answer from vision
 			|| ( error > -0.011 && error < -0.009)  // vision didn't find any contours
 			|| ( error > -0.031 && error < -0.029)) { // vision didn't find any targets
-			h = Robot.driveTrain.getGyroHeading();
-			h = ( Robot.driveTrain.getGyroHeading() + initHeadingQuadrantOffset) % 360;
-			proportion = DriveTrain.kPGyroConstant * ( h - initHeading);
+			h = Robot.driveTrain.getGyroHeading();  // gyro reading is more positive when the robot turns more to the right
+			// h = ( Robot.driveTrain.getGyroHeading() + initHeadingQuadrantOffset) % 360;
+			proportion = DriveTrain.kPGyroConstant * ( initHeading - h);
 
 		} else { 
 			// drive using error provided by vision
@@ -115,11 +115,13 @@ public class DriveStraightVision extends Command {
 			//if(error == 0) initHeading = Robot.driveTrain.getGyroHeading();
 			// if we lose vision, we'll keep going striaght in this direction
 			h = Robot.driveTrain.getGyroHeading();
+			/* 
+			
 			initHeadingQuadrantOffset = 0;
 			if( h < 45 || h > 315) {  // if heading is around zero we'll rotate the compass and modulo 360
 				initHeadingQuadrantOffset = 180;
 				h = ( h + initHeadingQuadrantOffset) % 360;
-			}
+			}*/
 			initHeading = h;
 
 			// keep track in case want to slow down close to target
@@ -135,7 +137,7 @@ public class DriveStraightVision extends Command {
 		// either run at user's desired speed or at slow speed
 		double v = vBus;
 		if( slowSpeed) {
-			vBus = vBusSlow;
+			v = vBusSlow;
 		}
 		
 		Robot.driveTrain.tankDrive(coefficient * (v + proportion), -coefficient * (v - proportion));
