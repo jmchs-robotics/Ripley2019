@@ -69,7 +69,7 @@ public class DriveTrain extends Subsystem {
 	private static final double kRightF = 0;
 	private static final double minVBusOutVal = 0.2;
 
-	private static double shudderMagnitude = 0.3; //arbitrary number...for testing
+	private static double shudderMagnitude = 0.6; //arbitrary number...for testing
 	private static boolean leftShudderLatch = false;
 	private static boolean rightShudderLatch = false;
 

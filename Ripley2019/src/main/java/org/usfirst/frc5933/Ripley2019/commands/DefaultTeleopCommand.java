@@ -78,7 +78,7 @@ public class DefaultTeleopCommand extends Command {
 
         //Arm arm
         //Robot.yeetArm.setSpeed(Robot.oi.getSubsystemJoystick().getY());
-        Robot.arm.moveArm();
+        //Robot.arm.moveArm();
     }
 
     // Make this return true when this Command no longer needs to run execute()

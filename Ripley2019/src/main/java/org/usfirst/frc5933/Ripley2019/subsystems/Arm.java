@@ -49,9 +49,9 @@ public class Arm extends Subsystem {
 	// confirm which way students want to drive
 	private static final double joyStickPolarity = -1.0; 
 	// hitting limit switch stops the motor. If driving the arm downwads is green on the talon, this should be -1.
-	private static final double limitSwitchPolarity = -1.0; 
-	public static double kDown = 0.005; // / 300 ; // target vBus proportional coefficient for moving the arm down. Should be positive.
-	public static double kUp = 0.005; // / 300; // target vBus proportional coefficient for moving the arm up. Should be positive.
+	private static final double limitSwitchPolarity = 1.0; 
+	public static double kDown = 0.005; //0.15; // target vBus proportional coefficient for moving the arm down. Should be positive.
+	public static double kUp = 0.005; //0.18;  // target vBus proportional coefficient for moving the arm up. Should be positive.
 	public static double vBusDownMax = -1.0; // probably don’t want to lower at top speed. Should be a negative number.
 	public static double vBusUpMax = 1.0; // probably full power, positive
 		// may want a vBusUpMin = 0.2 to make sure we always overcome gravity and static friction...
@@ -59,9 +59,9 @@ public class Arm extends Subsystem {
 	public static int encoderTargetPosition = 0; // set when user hits an encoder-based desired position
 	public static int bottomEncoder = 0; // value of the encoder whenever the lower switch is triggered
 	public static int topEncoder = 1100; // value of the encoder whenever the upper switch is triggered
-	public static int rocketHatchOne = 73;
-	public static int rocketHatchTwo = 656;
-	public static int rocketHatchThree = 1119;
+	public static int rocketHatchOne = 99;
+	public static int rocketHatchTwo = 751;
+	public static int rocketHatchThree = 1235;
 
     public int blindCounter = 0;
 
@@ -240,7 +240,7 @@ public class Arm extends Subsystem {
 			double vBus = 0;
 			SmartDashboard.putNumber("arm error", e);
 			if (e < 0) {  // need to lower the arm, but don’t want to lower too quickly 
-				vBus = e * kUp; /* kDown; 
+				vBus = e * kDown; /* kDown; 
 				if (vBus < vBusDownMax) { 
 					vBus = vBusDownMax; 
 				}  */
@@ -261,6 +261,7 @@ public class Arm extends Subsystem {
 			setArmMotorVbus( vBus);
 		} else { // otherwise subsystem driver is using the joystick
 			moveArm(); // standard joystick-based arm movement
+			SmartDashboard.putBoolean("Arm is a-go: ", true);
 		}
 	
 
