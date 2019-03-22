@@ -9,38 +9,44 @@ package org.usfirst.frc5933.Ripley2019.commands;
 
 import org.usfirst.frc5933.Ripley2019.Robot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class CricketLegsOut extends Command {
-  public CricketLegsOut() {
+public class YeetArmForwardTimed extends Command {
+  //This command is for the autonomous End game climb... in theory
+
+  public double time;
+
+  public YeetArmForwardTimed(double time) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.cricketLegs);
+    
+    requires(Robot.yeetArm);
+
+    this.time = time;
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize(){
+  protected void initialize() {
+    setTimeout(time);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute(){
-    Robot.cricketLegs.setTriggerSolenoids(Value.kForward);
-    setTimeout(0.1);
+  protected void execute() {
+    Robot.yeetArm.setSpeed(-0.7);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return isTimedOut();
-  }
+    }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.cricketLegs.setTriggerSolenoids(Value.kOff);
+    Robot.yeetArm.stopYeet();
   }
 
   // Called when another command which requires one or more of the same

@@ -7,46 +7,40 @@
 
 package org.usfirst.frc5933.Ripley2019.commands;
 
-import org.usfirst.frc5933.Ripley2019.Robot;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class CricketLegsOut extends Command {
-  public CricketLegsOut() {
+public class ToggleCommand extends Command {
+  public ToggleCommand(Command commandObj){
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.cricketLegs);
+   // Robot.requires(arm), Robot.requires(cargo), Robot.requires(cricketlegs), Robot.requires(driveTrain);
+    //Robot.requires(hatch), Robot.requires(wrist)
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize(){
+  protected void initialize() {
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute(){
-    Robot.cricketLegs.setTriggerSolenoids(Value.kForward);
-    setTimeout(0.1);
+  protected void execute() {
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.cricketLegs.setTriggerSolenoids(Value.kOff);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

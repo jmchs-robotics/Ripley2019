@@ -54,6 +54,30 @@ public class Path2CG extends CommandGroup {
 		// a CommandGroup containing them would require both the chassis and the
 		// arm.
 		
+		// Starting with the wheels @ front edge of lvl 2 on right side with the edge of the robot with the outer edge of platform
+		// drive straight gyro for 38 "
+		//addSequential(new DriveStraight(0.7, 38, -0.6, true));
+
+
+		//Starting w/ the wheels @ middle wheel front edge of platform on right side
+
+		//turn right forward 67 Degrees 49 in radius
+		addSequential( new DriveArc( 0.7, 49, 67, -1.1));
+
+		// turn left forward 23 degrees 49 in radius
+		addSequential( new DriveArc( 0.7, 49, -45, -1.1)); 
+
+		// drive straight 58 in 
+		//addSequential(new DriveStraight(0.7, 58, -0.6, true));
+
+		//turn left forward 90 degreess radius 28 in
+		//addSequential(new DriveArc(0.7, 28, 90, -0.6));
+
+		// drive straight vision (fingers crossed)
+		//addSequential(new DriveStraightVision(0.7, "WE ARE AWESOME", -0.6));
+
+		
+
 		//
 		// testing driveArc:
 		//
@@ -61,7 +85,7 @@ public class Path2CG extends CommandGroup {
 		// addSequential( new DriveArc( 0.7, 40, 45, -1.6));
 
 		// 3/3/19 driving forward left.
-		addSequential( new DriveArc( 0.7, 40, -45, -1.1)); 
+		//addSequential( new DriveArc( 0.7, 40, -45, -1.1)); 
 
 		// 3/3/19 driving backward right
 		// addSequential( new DriveArc( -0.7, 40, 45, 1.6));

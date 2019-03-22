@@ -77,9 +77,11 @@ public class DriveArc extends Command {
 		double centerRadius = inputCenterRadius;
 		double vbus = inputVbus;
 
+		//Changing from degress to Radians and then to inches
 		this.distL = encoderTicksPerInch 
 		
 		  * Math.abs( degrees * Math.PI / 180 * (centerRadius + Math.signum( degrees) * halfWheelWidth));
+		  
 		this.distR = encoderTicksPerInch 
 		  * Math.abs( degrees * Math.PI / 180 * (centerRadius - Math.signum( degrees) * halfWheelWidth));
 		SmartDashboard.putNumber("distR", distR);
@@ -88,11 +90,14 @@ public class DriveArc extends Command {
 		if( degrees < 0) {
 			this.vBusR = vbus;
 			this.vBusL = vbus * (c - halfWheelWidth) / (c + halfWheelWidth); // slower so we turn L
+			SmartDashboard.putNumber("vBusL Turning Left", vBusL);
 		}
 		else {
 			this.vBusL = vbus;
 			this.vBusR = vbus * (c - halfWheelWidth) / (c + halfWheelWidth); // slower so we turn R
+			SmartDashboard.putNumber("vBusR Turning Right", vBusR);	
 		}
+		//What is this???
 		// robot should turn this much for every encoder tick; magnitude should decrease with larger radius
 		//   negative for CCW travel (forward leftward or backwards rightward), positive for CW travel
 		if( encoderS < 0) {
@@ -102,7 +107,7 @@ public class DriveArc extends Command {
 		}
 		// this.degPerTick *= Math.signum( degrees * vbus);
 		this.degPerTick *= Math.signum( vbus);
-
+		// what does signum do
 		this.targetHeading = degrees * Math.signum( vbus);
 		this.targetHeadingDelta = this.targetHeading;
 		

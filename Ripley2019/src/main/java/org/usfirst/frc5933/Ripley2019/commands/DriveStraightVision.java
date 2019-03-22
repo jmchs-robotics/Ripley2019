@@ -151,7 +151,7 @@ public class DriveStraightVision extends Command {
 	}
 
 	// Called once after isFinished returns true
-	protected void end() {
+	protected void end(){
 		Robot.driveTrain.tankDrive(0, 0);
 	}
 
