@@ -159,6 +159,10 @@ public class OI {
         subRTrigger = new JoystickButton(subsystemJoystick, 10);
         subRTrigger.whileHeld(new CargoOut());
 
+        //Training Wheels
+        subStart= new JoystickButton(subsystemJoystick, 11);
+        subStart.whileHeld(new TrainingWheels());
+
       
         // //For Path2CG
          //driveDPadUp = new POVButton(subsystemJoystick, 0);
